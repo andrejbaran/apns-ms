@@ -1,4 +1,4 @@
-// Package apns provides functionality for interaction with APN Service and Feedback Service
+// Package exposes APNS Provider for Apple's APNS and Feedback services and uses job/worker pattern to process notifications concurrently
 package apns
 
 import (
