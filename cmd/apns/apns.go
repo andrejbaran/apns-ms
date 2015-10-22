@@ -28,8 +28,8 @@
 package main
 
 import (
-	"apns-microservice/apns"
-	"apns-microservice/server"
+	"apns-ms/apns"
+	"apns-ms/server"
 	"fmt"
 	log "github.com/coreos/pkg/capnslog"
 	"github.com/spf13/pflag"

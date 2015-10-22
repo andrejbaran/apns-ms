@@ -1,7 +1,7 @@
 package server
 
 import (
-	"apns-microservice/apns"
+	"apns-ms/apns"
 	"encoding/json"
 	"errors"
 	"github.com/spf13/pflag"
