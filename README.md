@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/andrejbaran/apns-ms.svg?branch=master)](https://travis-ci.org/andrejbaran/apns-ms)
+
 # Overview
 
 This package consists of two main sub-packages `apns` and `server`. There is also `apns` binary which can be seen as an example of "micro-service" implementation but is ready for use out of the box.
