@@ -111,7 +111,7 @@ Note: sending push notification from templates is on the roadmap.
 
 ### Raw push notification endpoint
 
-You can set URI for this endpoint by providing command line argument `--notification-endpoint`
+You can set URI for this endpoint by providing command line argument `--notification-endpoint="/{my-notification-uri}"`
 
 This endpoint accepts POST requests with JSON formatted notification data. Notification data format resembles Apple's notification format specification and can be validated with following json schema:
 ```json
@@ -261,8 +261,8 @@ This endpoint accepts POST requests with JSON formatted notification data. Notif
 
 ##### Request
 ```HTTP
-POST /my-send-push-notification-endpoint HTTP/1.1
-Host: MY_APNS_MS_HOST:MY_APNS_MS_PORT
+POST /{my-notification-uri} HTTP/1.1
+Host: {my_apns_ms_host}:{my_apns_ms_port}
 Content-Type: application/json
 
 {
@@ -301,7 +301,7 @@ Date: Wed, 21 Oct 2015 08:18:16 GMT
 
 ### Expired device tokens endpoint
 
-You can set URI for this endpoint by providing command line argument `--expired-devices-endpoint`
+You can set URI for this endpoint by providing command line argument `--expired-devices-endpoint="/{my-expired-uri}"`
 
 This endpoint accepts GET requests. Response includes a json encoded list of expired device tokens if there where any new since the last check.
 
@@ -321,8 +321,8 @@ Per Apple's recommendation you should always check whether the device hasn't rer
 
 ##### Request:
 ```http
-GET /my-feedback-endpoint HTTP/1.1
-Host: MY_APNS_MS_HOST:MY_APNS_MS_PORT
+GET /{my-expired-uri} HTTP/1.1
+Host: {my_apns_ms_host}:{my_apns_ms_port}
 ```
 
 ##### Response:
@@ -354,6 +354,3 @@ godoc.org
 - Templates for notifications (to make use of [ notification actions/categories](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/IPhoneOSClientImp.html#//apple_ref/doc/uid/TP40008194-CH103-SW26) easier)
 - Adaptive number of workers (depending on amount of requests)
 - Stats
-
-## License
-MIT
