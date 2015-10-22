@@ -1,4 +1,4 @@
-// Package exposes HTTP API in form of handler functions ready for use with go's `net/http` package but can also be used with other http servers like `falcore`.
+// Package server exposes HTTP API in form of handler functions ready for use with go's `net/http` package but can also be used with other http servers like `falcore`.
 //
 // HTTP API
 //
