@@ -28,9 +28,9 @@
 package main
 
 import (
-	"apns-ms/apns"
-	"apns-ms/server"
 	"fmt"
+	"github.com/andrejbaran/apns-ms/apns"
+	"github.com/andrejbaran/apns-ms/server"
 	log "github.com/coreos/pkg/capnslog"
 	"github.com/spf13/pflag"
 	"net/http"

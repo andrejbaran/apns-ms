@@ -1,9 +1,9 @@
 package server
 
 import (
-	"apns-ms/apns"
 	"encoding/json"
 	"errors"
+	"github.com/andrejbaran/apns-ms/apns"
 	"github.com/spf13/pflag"
 	"io"
 	"net"

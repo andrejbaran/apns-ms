@@ -1,7 +1,7 @@
 package server
 
 import (
-	"apns-ms/apns"
+	"github.com/andrejbaran/apns-ms/apns"
 )
 
 var logger apns.LoggerInterface = new(nullLogger)
