@@ -1,6 +1,6 @@
 // Example of a command line executable for running APNS Provider as "microservice" but despite it being an example it can be used out of the box as is.
 //
-// It is meant as a "microservice" thus it exposes HTTP API for communication with 3rd party programs.
+// It is meant as a "microservice" thus it exposes HTTP API for communication with 3rd party programs (see package server)
 //
 // Usage
 //
