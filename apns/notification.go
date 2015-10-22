@@ -216,14 +216,19 @@ func (n *Notification) Bytes() ([]byte, error) {
 	// Device token
 	token, deviceTokenError := hex.DecodeString(n.DeviceToken)
 	if deviceTokenError != nil {
-		return nil, deviceTokenError
+		return nil, errors.New("apns/notification: Device token should be hex encoded " + strconv.Itoa(DeviceTokenItemLength) + " bytes long binary string")
 	}
-	if len(token) == DeviceTokenItemLength {
-		binary.Write(frameBuffer, binary.BigEndian, uint8(DeviceTokenItemID))
-		binary.Write(frameBuffer, binary.BigEndian, uint16(DeviceTokenItemLength))
-		binary.Write(frameBuffer, binary.BigEndian, token)
-	} else {
-		return nil, errors.New("apns/notification: Device token has to be hex encoded " + strconv.Itoa(DeviceTokenItemLength) + " bytes long binary string")
+	if len(token) != DeviceTokenItemLength {
+		return nil, errors.New("apns/notification: Device token length is " + strconv.Itoa(len(token)) + " bytes but should be " + strconv.Itoa(DeviceTokenItemLength) + " bytes")
+	}
+
+	// Notification Identifer
+	identifier, identifierError := hex.DecodeString(n.NotificationIdentifier)
+	if identifierError != nil {
+		return nil, errors.New("apns/notification: Notification identifier should be hex encoded " + strconv.Itoa(NotificationIdentifierItemLength) + " bytes long binary string")
+	}
+	if len(identifier) != NotificationIdentifierItemLength {
+		return nil, errors.New("apns/notification: Notification identifier length is " + strconv.Itoa(len(identifier)) + " bytes but should be " + strconv.Itoa(NotificationIdentifierItemLength) + " bytes")
 	}
 
 	// Payload
@@ -232,20 +237,17 @@ func (n *Notification) Bytes() ([]byte, error) {
 		return nil, payloadError
 	}
 	if len(payload) > PayloadItemMaxLength {
-		return nil, errors.New("apns/notification: Notification payload size has to be " + strconv.Itoa(PayloadItemMaxLength) + " bytes at maximum")
+		return nil, errors.New("apns/notification: Notification payload size is " + strconv.Itoa(len(payload)) + " bytes but should be " + strconv.Itoa(PayloadItemMaxLength) + " bytes at maximum")
 	}
+
+	binary.Write(frameBuffer, binary.BigEndian, uint8(DeviceTokenItemID))
+	binary.Write(frameBuffer, binary.BigEndian, uint16(DeviceTokenItemLength))
+	binary.Write(frameBuffer, binary.BigEndian, token)
+
 	binary.Write(frameBuffer, binary.BigEndian, uint8(PayloadItemID))
 	binary.Write(frameBuffer, binary.BigEndian, uint16(len(payload)))
 	binary.Write(frameBuffer, binary.BigEndian, payload)
 
-	// Notification Identifer
-	identifier, identifierError := hex.DecodeString(n.NotificationIdentifier)
-	if identifierError != nil {
-		return nil, identifierError
-	}
-	if len(identifier) != NotificationIdentifierItemLength {
-		return nil, errors.New("apns/notification: Notification identifier has to be a hex encoded " + strconv.Itoa(NotificationIdentifierItemLength) + " bytes longs binary string")
-	}
 	binary.Write(frameBuffer, binary.BigEndian, uint8(NotificationIdentifierItemID))
 	binary.Write(frameBuffer, binary.BigEndian, uint16(NotificationIdentifierItemLength))
 	binary.Write(frameBuffer, binary.BigEndian, identifier)
